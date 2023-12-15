@@ -50,7 +50,7 @@ void createNewTask(){
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.yellow[200],
+        backgroundColor: Colors.indigo,
         appBar: AppBar(
           title: Text("TO DO"),
           elevation: 0,
