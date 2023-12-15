@@ -10,47 +10,65 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _controller=TextEditingController();
+  TextEditingController _taskNameController = TextEditingController();
+  TextEditingController _taskDescreptionController = TextEditingController();
   // list of todo tasks
   List toDoList = [
-    ["Make tutorial", false],
-    ["Do Exerccise", false],
-    ["Make tutorial", false],
-    ["Do Exerccise", false],
+    ["123456", "Make a tutorial", false]
   ];
   //chekcbox was tapped
   void CheckboxChanged(bool? value, int index) {
     setState(() {
-      toDoList[index][1] = !toDoList[index][1];
+      toDoList[index][2] = !toDoList[index][2];
     });
   }
+
   // onSave
-  void onSavebutton(){
-   setState(() {
-     toDoList.add([_controller.text,false]);
-   });
+  void onSavebutton() {
+    setState(() {
+      toDoList.add(
+          [_taskNameController.text, _taskDescreptionController.text, false]);
+    });
     Navigator.pop(context);
-    _controller.clear();
+    _taskNameController.clear();
+    _taskDescreptionController.clear();
   }
+
   // onCancel
-  void OnCancel(){
+  void OnCancel() {
     Navigator.pop(context);
   }
 
   // create a new task
-void createNewTask(){
-    showDialog(context: context, builder:(context){
-      return DialogeBox(controller: _controller, onSave: onSavebutton, onCancel:OnCancel,
-      //
-      );
+  void createNewTask() {
+    try {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return DialogeBox(
+              phoneController: _taskNameController,
+              taskController: _taskDescreptionController,
+              onSave: onSavebutton,
+              onCancel: OnCancel,
+            );
+          });
+    } catch (exeption) {
+      print(exeption);
+    }
+  }
+  // delete task
+  void deleteTask(int index) {
+    setState(() {
+      toDoList.removeAt(index);
     });
 
-}
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.yellow[200],
         appBar: AppBar(
           title: Text("TO DO"),
           elevation: 0,
@@ -65,9 +83,10 @@ void createNewTask(){
             itemBuilder: (context, index) {
               return TodoTile(
                 taskName: toDoList[index][0],
-                taskCompleted: toDoList[index][1],
+                taskDescreption: toDoList[index][1],
+                taskCompleted: toDoList[index][2],
                 onChanged: (value) => CheckboxChanged(value, index),
-                index: toDoList.length,
+                deleteFunction:(context)=>deleteTask(index),
               );
             }));
   }
