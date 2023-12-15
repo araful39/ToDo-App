@@ -15,15 +15,14 @@ class _HomePageState extends State<HomePage> {
   // reference the hive box
   final _myBox = Hive.box("myBox");
 
-  TextEditingController _taskNameController = TextEditingController();
+  TextEditingController _taskSubController = TextEditingController();
   TextEditingController _taskDescreptionController = TextEditingController();
   //if this is the 1st time ever openin the app,then create default data
   @override
   void initState() {
-    if(_myBox.get("TODOLIST")==null){
+    if (_myBox.get("TODOLIST") == null) {
       db.createInitialData();
-    }
-    else{
+    } else {
       // there already exists data
       db.loadData();
     }
@@ -43,26 +42,25 @@ class _HomePageState extends State<HomePage> {
 
   // onSave
   void onSavebutton() {
-
-   if(_taskNameController.text.isNotEmpty && _taskDescreptionController.text.isNotEmpty ){
-     setState(() {
-       db.toDoList.add(
-           [_taskNameController.text, _taskDescreptionController.text, false]);
-     });
-     _taskNameController.clear();
-     _taskDescreptionController.clear();
-     Navigator.pop(context);
-     db.updataDataBase();
-   }else{
-
- showDialog(context: context, builder: (context){
-   return AlertDialog(
-     content: Text("Please insert subject and descreption"),
-   );
- }
-       );
-   }
-
+    if (_taskSubController.text.isNotEmpty &&
+        _taskDescreptionController.text.isNotEmpty) {
+      setState(() {
+        db.toDoList.add(
+            [_taskSubController.text, _taskDescreptionController.text, false]);
+      });
+      _taskSubController.clear();
+      _taskDescreptionController.clear();
+      Navigator.pop(context);
+      db.updataDataBase();
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text("Please insert subject and descreption"),
+            );
+          });
+    }
   }
 
   // onCancel
@@ -72,20 +70,16 @@ class _HomePageState extends State<HomePage> {
 
   // create a new task
   void createNewTask() {
-    try {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return DialogeBox(
-              taskSubController: _taskNameController,
-              taskDescreptionController: _taskDescreptionController,
-              onSave: onSavebutton,
-              onCancel: OnCancel,
-            );
-          });
-    } catch (exeption) {
-      print(exeption);
-    }
+    showDialog(
+        context: context,
+        builder: (context) {
+          return DialogeBox(
+            taskNameController: _taskSubController,
+            taskDescreptionController: _taskDescreptionController,
+            onSave: onSavebutton,
+            onCancel: OnCancel,
+          );
+        });
   }
 
   // delete task
