@@ -20,14 +20,14 @@ class TodoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: Slidable(
         endActionPane: ActionPane(
-          motion: ScrollMotion(),
+          motion: const ScrollMotion(),
           children: [
             SlidableAction(
               onPressed: deleteFunction,
-              backgroundColor: Color(0xFFFE4A49),
+              backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
               icon: Icons.delete,
               label: 'Delete',
@@ -35,7 +35,8 @@ class TodoTile extends StatelessWidget {
           ],
         ),
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          decoration: const BoxDecoration(color: Colors.yellow),
           child: Column(
             children: [
 
@@ -67,7 +68,6 @@ class TodoTile extends StatelessWidget {
               )
             ],
           ),
-          decoration: BoxDecoration(color: Colors.yellow),
         ),
       ),
     );

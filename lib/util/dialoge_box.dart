@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'my_button.dart';
 
 class DialogeBox extends StatelessWidget {
-  final taskNameController;
-  final taskDescreptionController;
-  VoidCallback onSave;
-  VoidCallback onCancel;
+  var taskNameController;
+
+  var onSave;
+
+  var onCancel;
+
+  var taskDescreptionController;
+
+
   DialogeBox(
       {super.key,
       required this.taskNameController,
@@ -20,7 +25,7 @@ class DialogeBox extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Colors.yellow,
       content: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: h/2.5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -29,7 +34,7 @@ class DialogeBox extends StatelessWidget {
               TextField(
                 controller: taskNameController,
                 maxLength: 30,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Subject",
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black, width: 1)),
@@ -40,7 +45,7 @@ class DialogeBox extends StatelessWidget {
               TextField(
                 controller: taskDescreptionController,
                 maxLength: 60,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Descreption",
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black, width: 1)),
@@ -48,7 +53,7 @@ class DialogeBox extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.black, width: 1)),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               // save button or cancel
@@ -58,7 +63,7 @@ class DialogeBox extends StatelessWidget {
                     text: 'Save',
                     onPressed: onSave,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   MyButton(
